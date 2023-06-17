@@ -1,0 +1,26 @@
+[build-system]
+requires      = ["setuptools>=61.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dtstools"
+version = "0.0.1"
+authors = [
+  { name="Reginaldo Silva", email="reginaldo.silva@dataside.com.br" },
+]
+description = "This package aims to provide features for working with Delta Lake."
+readme = "README.md"
+requires-python = ">=3.7"
+license = { file = "LICENSE" }
+keywords = ["tableSize", "tableMaintenance", "help", "deltaLake", "Spark", "Databricks", "Fabric"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"DataInAction" = "https://www.datainaction.dev/blog"
+"Bug Tracker" = "https://github.com/reginaldosilva27/Databricks"
+"README" = "https://www.datainaction.dev/blog"
+"Dataside" = "https://www.dataside.com.br"
