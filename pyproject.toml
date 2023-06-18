@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "dtstools"
-version = "0.0.1"
+version = "0.0.2"
 authors = [
   { name="Reginaldo Silva", email="reginaldo.silva@dataside.com.br" },
 ]
@@ -21,6 +21,6 @@ classifiers = [
 
 [project.urls]
 "DataInAction" = "https://www.datainaction.dev/blog"
-"Bug Tracker" = "https://github.com/reginaldosilva27/Databricks"
+"Bug Tracker" = "https://github.com/reginaldosilva27/dtstools"
 "README" = "https://www.datainaction.dev/blog"
 "Dataside" = "https://www.dataside.com.br"

@@ -2,21 +2,21 @@
   <a href="https://www.datainaction.dev/" title="Data In Action" target="_blank">
     <img alt="Homepage" src="https://img.shields.io/website?down_color=%23FF4136&down_message=Down&label=Homepage&logo=home-assistant&logoColor=white&up_color=%232ECC40&up_message=Up&url=https%3A%2F%2Fmegabyte.space&style=for-the-badge" />
   </a>
-  <a href="https://github.com/reginaldosilva27/Databricks" title="Contributing" target="_blank">
+  <a href="https://github.com/reginaldosilva27/dtstools/blob/main/CONTRIBUTING.md" title="Contributing" target="_blank">
     <img alt="Contributing" src="https://img.shields.io/badge/Contributing-Guide-0074D9?logo=github-sponsors&logoColor=white&style=for-the-badge" />
   </a>
   <a href="https://join.slack.com/t/databricksbr/shared_invite/zt-1xe5tjy82-4O0fYQM8WnplLqrqIxQKqg" title="Slack" target="_blank">
     <img alt="Slack" src="https://img.shields.io/badge/Slack-Chat-e01e5a?logo=slack&logoColor=white&style=for-the-badge" />
   </a>
-  <a href="https://github.com/reginaldosilva27/Databricks" title="GitHub" target="_blank">
+  <a href="https://github.com/reginaldosilva27/dtstools" title="GitHub" target="_blank">
     <img alt="GitHub" src="https://img.shields.io/badge/Mirror-GitHub-333333?logo=github&style=for-the-badge" />
   </a>
 </div>
 <div align="center">
-  <a title="Version: 0.0.1" href="https://github.com/reginaldosilva27/Databricks" target="_blank">
-    <img alt="Version: 0.0.1" src="https://img.shields.io/badge/version-0.0.1-blue.svg?logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgAQMAAABJtOi3AAAABlBMVEUAAAD///+l2Z/dAAAAAXRSTlMAQObYZgAAACNJREFUCNdjIACY//+BEp9hhM3hAzYQwoBIAqEDYQrCZLwAAGlFKxU1nF9cAAAAAElFTkSuQmCC&cacheSeconds=2592000&style=flat-square" />
+  <a title="Version: 0.0.2" href="https://github.com/reginaldosilva27/dtstools" target="_blank">
+    <img alt="Version: 0.0.2" src="https://img.shields.io/badge/version-0.0.2-blue.svg?logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgAQMAAABJtOi3AAAABlBMVEUAAAD///+l2Z/dAAAAAXRSTlMAQObYZgAAACNJREFUCNdjIACY//+BEp9hhM3hAzYQwoBIAqEDYQrCZLwAAGlFKxU1nF9cAAAAAElFTkSuQmCC&cacheSeconds=2592000&style=flat-square" />
   </a>
-    <a title="License: MIT" href="https://github.com/reginaldosilva27/Databricks" target="_blank">
+    <a title="License: MIT" href="https://github.com/reginaldosilva27/dtstools" target="_blank">
     <img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-yellow.svg?logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgAQMAAABJtOi3AAAABlBMVEUAAAD///+l2Z/dAAAAAXRSTlMAQObYZgAAAHpJREFUCNdjYOD/wMDAUP+PgYHxhzwDA/MB5gMM7AwMDxj4GBgKGGQYGCyAEEgbMDDwAAWAwmk8958xpIOI5zKH2RmOyhxmZjguAiKmgIgtQOIYmFgCIp4AlaQ9OczGkJYCJEAGgI0CGwo2HmwR2Eqw5SBnNIAdBHYaAJb6KLM15W/CAAAAAElFTkSuQmCC&style=flat-square" />
   </a>
     <a href="Spark" title="Platform" target="_blank">
@@ -96,6 +96,7 @@ dtsTable.Help()
 
 <a id="how-to-use-tableSize"></a>
 ### How to use tableSize
+> Find out the true size of your table
 Call the tableSize function passing the database and table name, use display() to see the results.
 
 **This function returns a Dataframe.**
@@ -121,7 +122,7 @@ for tb in spark.sql(f"show tables from bronze_renner_rma").collect():
         dtsTable.tableSize(tb.database,tb.tableName) \
         .write.format('delta') \
         .mode('append') \
-        .saveAsTable("db_demo.tableSize",path='abfss://reginaldo@stdts360.dfs.core.windows.net/bronze/tableSize2')
+        .saveAsTable("db_demo.tableSize",path='abfss://container@storage.dfs.core.windows.net/bronze/tableSize')
     except Exception as e:
         print (f"###### Error to load tableName {tb.tableName} - {e}######")
 ```
@@ -144,7 +145,7 @@ Apply maintenance to a table, Optimize and Vacuum.
 
 **Apply in a single table.**
 ```
-dtsTable.tableMaintenance(schemaName=tb.database, tableName=tb.tableName, zorderColumns='none', vacuumRetention=168, vacuum=True, optimize=True, debug=False)
+dtsTable.tableMaintenance(schemaName="Database", tableName="tableName", zorderColumns='none', vacuumRetention=168, vacuum=True, optimize=True, debug=False)
 ```
 
 **Apply maintenance to all tables for YOUR database**
@@ -174,10 +175,10 @@ for tb in spark.sql(f"show tables from db_demo").collect():
 <a id="references"></a>
 ## References
 
-<https://github.com/delta-io/delta/blob/master/core/src/main/scala/org/apache/spark/sql/delta/commands/VacuumCommand.scala>
+https://github.com/reginaldosilva27/dtstools
 <br>
 
 > ``Author: Reginaldo Silva``
   - [Blog Data In Action](https://datainaction.dev/)
-  - [Github](https://github.com/reginaldosilva27)
+  - [Github](https://github.com/reginaldosilva27/dtstools)
   - [Dataside](https://www.dataside.com.br/)
