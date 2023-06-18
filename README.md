@@ -116,7 +116,7 @@ dtsTable.tableSize(databaseName,tableName) \
 
 **Get the size of all tables in your database**
 ```
-for tb in spark.sql(f"show tables from bronze_renner_rma").collect():
+for tb in spark.sql(f"show tables from db_demo").collect():
     try:
         print(">> Collecting data... Table:",tb.tableName)
         dtsTable.tableSize(tb.database,tb.tableName) \
