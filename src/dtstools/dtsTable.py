@@ -130,7 +130,7 @@ def tableMaintenance (schemaName='none', tableName='none', zorderColumns='none',
 
 # Function to get help about
 def Help():
-    print("v0.0.2")
+    print("v0.0.3")
     print("""____  ______ __ ______  ___    ___  __    __  """)
     print('|| \\\\ | || |(( \| || | // \\\\  // \\\\ ||   (( \ ')
     print("""||  ))  ||   \\\\   ||  ((   ))((   ))||    \\\\  """)
