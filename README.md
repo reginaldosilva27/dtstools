@@ -13,8 +13,8 @@
   </a>
 </div>
 <div align="center">
-  <a title="Version: 0.0.3" href="https://github.com/reginaldosilva27/dtstools" target="_blank">
-    <img alt="Version: 0.0.3" src="https://img.shields.io/badge/version-0.0.3-blue.svg?logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgAQMAAABJtOi3AAAABlBMVEUAAAD///+l2Z/dAAAAAXRSTlMAQObYZgAAACNJREFUCNdjIACY//+BEp9hhM3hAzYQwoBIAqEDYQrCZLwAAGlFKxU1nF9cAAAAAElFTkSuQmCC&cacheSeconds=2592000&style=flat-square" />
+  <a title="Version: 0.0.4" href="https://github.com/reginaldosilva27/dtstools" target="_blank">
+    <img alt="Version: 0.0.4" src="https://img.shields.io/badge/version-0.0.4-blue.svg?logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgAQMAAABJtOi3AAAABlBMVEUAAAD///+l2Z/dAAAAAXRSTlMAQObYZgAAACNJREFUCNdjIACY//+BEp9hhM3hAzYQwoBIAqEDYQrCZLwAAGlFKxU1nF9cAAAAAElFTkSuQmCC&cacheSeconds=2592000&style=flat-square" />
   </a>
     <a title="License: MIT" href="https://github.com/reginaldosilva27/dtstools" target="_blank">
     <img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-yellow.svg?logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgAQMAAABJtOi3AAAABlBMVEUAAAD///+l2Z/dAAAAAXRSTlMAQObYZgAAAHpJREFUCNdjYOD/wMDAUP+PgYHxhzwDA/MB5gMM7AwMDxj4GBgKGGQYGCyAEEgbMDDwAAWAwmk8958xpIOI5zKH2RmOyhxmZjguAiKmgIgtQOIYmFgCIp4AlaQ9OczGkJYCJEAGgI0CGwo2HmwR2Eqw5SBnNIAdBHYaAJb6KLM15W/CAAAAAElFTkSuQmCC&style=flat-square" />
@@ -60,7 +60,7 @@
 
 | version | date | description |
 |-----------|-------|----------|
-| `v0.0.3` | 2023-06-17 | Basic features |
+| `v0.0.4` | 2023-06-17 | Basic features |
 
 > This package aims to provide functionality to work with Delta Lake.
 >
@@ -78,7 +78,7 @@
 **First install the package via PyPi**
 
 ```
-pip install --upgrade -i https://test.pypi.org/simple/ dtstools
+pip install --upgrade dtstools
 ```
 
 **Import the dtsTable module into your context**
@@ -97,6 +97,7 @@ dtsTable.Help()
 <a id="how-to-use-tableSize"></a>
 ### How to use tableSize
 > Find out the true size of your table
+
 Call the tableSize function passing the database and table name, use display() to see the results.
 
 **This function returns a Dataframe.**

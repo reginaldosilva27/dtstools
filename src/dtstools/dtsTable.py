@@ -130,7 +130,7 @@ def tableMaintenance (schemaName='none', tableName='none', zorderColumns='none',
 
 # Function to get help about
 def Help():
-    print("v0.0.3")
+    print("v0.0.4")
     print("""____  ______ __ ______  ___    ___  __    __  """)
     print('|| \\\\ | || |(( \| || | // \\\\  // \\\\ ||   (( \ ')
     print("""||  ))  ||   \\\\   ||  ((   ))((   ))||    \\\\  """)
@@ -153,14 +153,11 @@ def Help():
     print("")
     print(">> Get the size of all tables in your database")
     print("for tb in spark.sql(f'show tables from db_demo').collect():")
-    print("try:")
+    print("  try:")
     print("    print('>> Collecting data... Table:',tb.tableName)")
-    print("    dtsTable.tableSize(tb.database,tb.tableName) \ ")
-    print("    .write.format('delta') \ ")
-    print("    .mode('append') \ ")
-    print("    .saveAsTable('db_demo.tableSize',path='abfss://container@storage.dfs.core.windows.net/bronze/tableSize') ")
-    print("except Exception as e:")
-    print("    print (f'###### Error to load tableName {tb.tableName} - {e}######') ') ")
+    print("    dtsTable.tableSize(tb.database,tb.tableName).write.format('delta').mode('append').saveAsTable('db_demo.tableSize')")
+    print("  except Exception as e:")
+    print("    print (f'###### Error to load tableName {tb.tableName} - {e}######') ")
     print("")
     print("------------------------------------------------------")
     print("Function tableMaintenance()")
@@ -168,7 +165,7 @@ def Help():
     print("This function apply Optimize and Vacuum")
     print("")
     print(">> Sample call:")
-    print("dtsTable.tableMaintenance(schemaName='silver', tableName='tableName', zorderColumns='none', vacuumRetention=168, vacuum=True, optimize=True, debug=False)")
+    print("dtsTable.tableMaintenance(schemaName='db_name', tableName='tableName', zorderColumns='none', vacuumRetention=168, vacuum=True, optimize=True, debug=False)")
     print("")
     print("Reference: https://github.com/reginaldosilva27/dtstools")
 
