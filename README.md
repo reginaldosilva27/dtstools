@@ -13,8 +13,8 @@
   </a>
 </div>
 <div align="center">
-  <a title="Version: 0.0.4" href="https://github.com/reginaldosilva27/dtstools" target="_blank">
-    <img alt="Version: 0.0.4" src="https://img.shields.io/badge/version-0.0.4-blue.svg?logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgAQMAAABJtOi3AAAABlBMVEUAAAD///+l2Z/dAAAAAXRSTlMAQObYZgAAACNJREFUCNdjIACY//+BEp9hhM3hAzYQwoBIAqEDYQrCZLwAAGlFKxU1nF9cAAAAAElFTkSuQmCC&cacheSeconds=2592000&style=flat-square" />
+  <a title="Version: 0.0.6" href="https://github.com/reginaldosilva27/dtstools" target="_blank">
+    <img alt="Version: 0.0.6" src="https://img.shields.io/badge/version-0.0.6-blue.svg?logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgAQMAAABJtOi3AAAABlBMVEUAAAD///+l2Z/dAAAAAXRSTlMAQObYZgAAACNJREFUCNdjIACY//+BEp9hhM3hAzYQwoBIAqEDYQrCZLwAAGlFKxU1nF9cAAAAAElFTkSuQmCC&cacheSeconds=2592000&style=flat-square" />
   </a>
     <a title="License: MIT" href="https://github.com/reginaldosilva27/dtstools" target="_blank">
     <img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-yellow.svg?logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgAQMAAABJtOi3AAAABlBMVEUAAAD///+l2Z/dAAAAAXRSTlMAQObYZgAAAHpJREFUCNdjYOD/wMDAUP+PgYHxhzwDA/MB5gMM7AwMDxj4GBgKGGQYGCyAEEgbMDDwAAWAwmk8958xpIOI5zKH2RmOyhxmZjguAiKmgIgtQOIYmFgCIp4AlaQ9OczGkJYCJEAGgI0CGwo2HmwR2Eqw5SBnNIAdBHYaAJb6KLM15W/CAAAAAElFTkSuQmCC&style=flat-square" />
@@ -49,9 +49,11 @@
 - [How to use dtstools](#how-to-use-dtstools)
 - [How to use tableSize](#how-to-use-tableSize)
 - [How to use tableMaintenance](#how-to-use-tableMaintenance)
+- [How to use LastMaintenance](#last-maintenance)
 - [Future implementations](#future-implementations)
 - [Notes](#notes)
 - [References](#references)
+
 
 
 <a href="#introducion" style="width:100%"><img style="width:100%" src="https://static.wixstatic.com/media/a794bc_b10266580b524f6586d3b2d835cfb036~mv2.png" /></a>
@@ -61,6 +63,7 @@
 | version | date | description |
 |-----------|-------|----------|
 | `v0.0.4` | 2023-06-17 | Basic features |
+| `v0.0.6` | 2023-07-06 | Introduce lastMaintenance function |
 
 > This package aims to provide functionality to work with Delta Lake.
 >
@@ -154,6 +157,16 @@ dtsTable.tableMaintenance(schemaName="Database", tableName="tableName", zorderCo
 for tb in spark.sql(f"show tables from db_demo").collect():
   dtsTable.tableMaintenance(schemaName=tb.database, tableName=tb.tableName, zorderColumns='none', vacuumRetention=168, vacuum=True, optimize=True, debug=False)
 ```
+
+<a id="last-maintenance"></a>
+### Last Maintenance
+
+**Use the function dtsTable.LastMaintenance() to see summary vacuum result and optimize operations.**
+
+```
+dtsTable.lastMaintenance('database','tableName')
+```
+
 
 <a href="#future-implementations" style="width:100%"><img style="width:100%" src="https://static.wixstatic.com/media/a794bc_b10266580b524f6586d3b2d835cfb036~mv2.png" /></a>
 

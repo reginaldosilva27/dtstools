@@ -128,9 +128,47 @@ def tableMaintenance (schemaName='none', tableName='none', zorderColumns='none',
         else:
             print(f"### VACUUM not run! ###")
 
+def lastMaintenance(database, tableName):
+    try:
+        spark.sql(f"describe history {database}.{tableName}").createOrReplaceTempView("vwMaintenance")
+        df_return = spark.sql("""
+            Select 
+            replace(op.operation,'VACUUM START','VACUUM') operation, 
+            NVL(his.earliest,'Never') earliest, 
+            NVL(his.oldest,'Never') oldest, 
+            NVL(his.ocurrences,0) ocurrences, 
+            NVL(his.frequency,'No schedule') frequency,
+            NVL(his.params,0) params,
+            NVL(his.metrics,'None') metrics
+            from (
+                Select 'VACUUM START' as operation Union All
+                Select 'OPTIMIZE' 
+            ) op left join
+            (
+            select 
+                operation,
+                max(timestamp) earliest,
+                min(timestamp) oldest,
+                count(*) ocurrences , 
+                concat("average ",ABS(int(round(date_diff(max(timestamp),min(timestamp)) / count(*),0))),"xday") frequency,
+                case when operation in('VACUUM START') then Concat('retentionHours - ',int(last(operationParameters.specifiedRetentionMillis) / 1000 / 60 / 60)) 
+                    when operation in('OPTIMIZE') then Concat('zOrderBy - ',last(operationParameters.zOrderBy)) 
+                    else 'None' end params,
+                case when operation in('VACUUM START') then Concat('TotalDeletedFiles - ',sum(bigint(operationMetrics.numFilesToDelete)),' - TotalRemovedSizeGB - ',round(sum(bigint(operationMetrics.sizeOfDataToDelete)) / 1024 / 1024 / 1024,2)) 
+                    when operation in('OPTIMIZE') then Concat('TotalRemovedFiles - ',sum(bigint(operationMetrics.numRemovedFiles)),' - TotalnumAddedFiles - ',round(sum(bigint(operationMetrics.numAddedFiles)))) 
+                    else 'None' end metrics
+            from vwMaintenance where operation in ('VACUUM START','OPTIMIZE')
+            group by operation
+            ) his on op.operation = his.operation
+            """)
+        df_return.withColumn('dateLog',lit(f'{datetime.today()}')).display()
+    except Exception as e:
+        print(f"###### Error to load tableName {tableName} - {e}######")
+
+
 # Function to get help about
 def Help():
-    print("v0.0.4")
+    print("v0.0.6")
     print("""____  ______ __ ______  ___    ___  __    __  """)
     print('|| \\\\ | || |(( \| || | // \\\\  // \\\\ ||   (( \ ')
     print("""||  ))  ||   \\\\   ||  ((   ))((   ))||    \\\\  """)
@@ -166,6 +204,14 @@ def Help():
     print("")
     print(">> Sample call:")
     print("dtsTable.tableMaintenance(schemaName='db_name', tableName='tableName', zorderColumns='none', vacuumRetention=168, vacuum=True, optimize=True, debug=False)")
+    print("")
+    print("------------------------------------------------------")
+    print("Function lastMaintenance()")
+    print("------------------------------------------------------")
+    print("See summary vacuum result and optimize operations")
+    print("")
+    print(">> Sample call:")
+    print("dtsTable.lastMaintenance('db_name','tableName')")
     print("")
     print("Reference: https://github.com/reginaldosilva27/dtstools")
 

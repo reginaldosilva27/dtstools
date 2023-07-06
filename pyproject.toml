@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "dtstools"
-version = "0.0.4"
+version = "0.0.6"
 authors = [
   { name="Reginaldo Silva", email="reginaldo.silva@dataside.com.br" },
 ]
