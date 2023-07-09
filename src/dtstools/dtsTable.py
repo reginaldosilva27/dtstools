@@ -137,7 +137,7 @@ def lastMaintenance(database, tableName):
             NVL(his.earliest,'Never') earliest, 
             NVL(his.oldest,'Never') oldest, 
             NVL(his.ocurrences,0) ocurrences, 
-            NVL(his.frequency,'No schedule') frequency,
+            NVL(his.estimated_frequency,'No schedule') estimated_frequency,
             NVL(his.params,0) params,
             NVL(his.metrics,'None') metrics
             from (
@@ -150,8 +150,8 @@ def lastMaintenance(database, tableName):
                 max(timestamp) earliest,
                 min(timestamp) oldest,
                 count(*) ocurrences , 
-                concat("average ",ABS(int(round(date_diff(max(timestamp),min(timestamp)) / count(*),0))),"xday") frequency,
-                case when operation in('VACUUM START') then Concat('retentionHours - ',int(last(operationParameters.specifiedRetentionMillis) / 1000 / 60 / 60)) 
+                concat("every ",IF(ABS(int(round(date_diff(max(timestamp),min(timestamp)) / count(*),0))) = 0,1,ABS(int(round(date_diff(max(timestamp),min(timestamp)) / count(*),0))))," days") estimated_frequency,
+                case when operation in('VACUUM START') then Concat('retentionHours - ',int(NVL(last(operationParameters.specifiedRetentionMillis),last(operationParameters.defaultRetentionMillis)) / 1000 / 60 / 60)) 
                     when operation in('OPTIMIZE') then Concat('zOrderBy - ',last(operationParameters.zOrderBy)) 
                     else 'None' end params,
                 case when operation in('VACUUM START') then Concat('TotalDeletedFiles - ',sum(bigint(operationMetrics.numFilesToDelete)),' - TotalRemovedSizeGB - ',round(sum(bigint(operationMetrics.sizeOfDataToDelete)) / 1024 / 1024 / 1024,2)) 
@@ -168,7 +168,7 @@ def lastMaintenance(database, tableName):
 
 # Function to get help about
 def Help():
-    print("v0.0.6")
+    print("v0.0.9")
     print("""____  ______ __ ______  ___    ___  __    __  """)
     print('|| \\\\ | || |(( \| || | // \\\\  // \\\\ ||   (( \ ')
     print("""||  ))  ||   \\\\   ||  ((   ))((   ))||    \\\\  """)
